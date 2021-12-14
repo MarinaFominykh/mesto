@@ -1,0 +1,7 @@
+.places__like {
+    padding: 0;
+    border: none;
+    background: transparent url(../../../images/like.svg);
+    width: 22px;
+    height: 19px;
+}
