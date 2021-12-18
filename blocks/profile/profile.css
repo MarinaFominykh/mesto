@@ -1,6 +1,4 @@
 .profile {
-    /* display: flex;
-    justify-content: space-between; */
     padding: 0;
     margin: 0 auto 47.25px;
     width: 100%;
@@ -9,6 +7,7 @@
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas: "image name add" "image self add";
     align-content: space-between;
+    row-gap: 16px;
 }
 
 @media screen and (max-width: 960px) {
@@ -18,5 +17,6 @@
         grid-template-areas: "image" "name" "self" "add";
         justify-content: center;
         margin: 0 auto;
+        row-gap: 0;
     }
 }

@@ -4,4 +4,10 @@
     background: transparent url(../../../images/like.svg);
     width: 22px;
     height: 19px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.places__like:hover {
+    opacity: 0.6;
 }
