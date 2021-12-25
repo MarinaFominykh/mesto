@@ -22,13 +22,13 @@
             <img src="./images/Avatar.png" alt="Аватар" class="profile__avatar">
             <div class="profile__name-container">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button">
+                <button class="profile__edit-button" type="button">
                     <img src="./images/vector.svg" alt="Редактировать" class="profile__edit-image">
             </button>
             </div>
 
             <p class="profile__subtitle">Исследователь океaна</p>
-            <button class="profile__add-button"></button>
+            <button class="profile__add-button" type="button"></button>
 
         </section>
 
@@ -38,7 +38,7 @@
                     <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="places__image">
                     <div class="places__name-container">
                         <h2 class="places__name">Карачаево-Черкесия</h2>
-                        <button class="places__like"></button>
+                        <button class="places__like" type="button"></button>
                     </div>
                 </li>
 
@@ -46,7 +46,7 @@
                     <img src="./images/baikal.jpg" alt="Байкал" class="places__image">
                     <div class="places__name-container">
                         <h2 class="places__name">Байкал</h2>
-                        <button class="places__like"></button>
+                        <button class="places__like" type="button"></button>
                     </div>
                 </li>
 
@@ -54,7 +54,7 @@
                     <img src="./images/cairo.jpg" alt="Каир" class="places__image">
                     <div class="places__name-container">
                         <h2 class="places__name">Каир</h2>
-                        <button class="places__like"></button>
+                        <button class="places__like" type="button"></button>
                     </div>
                 </li>
 
@@ -62,7 +62,7 @@
                     <img src="./images/dombai.jpg" alt="Домбай" class="places__image">
                     <div class="places__name-container">
                         <h2 class="places__name">Домбай</h2>
-                        <button class="places__like"></button>
+                        <button class="places__like" type="button"></button>
                     </div>
                 </li>
 
@@ -70,7 +70,7 @@
                     <img src="./images/elbrus.jpg" alt="Эльбрус" class="places__image">
                     <div class="places__name-container">
                         <h2 class="places__name">Гора Эльбрус</h2>
-                        <button class="places__like"></button>
+                        <button class="places__like" type="button"></button>
                     </div>
                 </li>
 
@@ -78,7 +78,7 @@
                     <img src="./images/valencia.jpg" alt="Валенсия" class="places__image">
                     <div class="places__name-container">
                         <h2 class="places__name">Валенсия</h2>
-                        <button class="places__like"></button>
+                        <button class="places__like" type="button"></button>
                     </div>
                 </li>
 
@@ -90,16 +90,16 @@
     </main>
 
     <footer class="footer">
-        <img src="./images/©2020MestoRussia.svg" alt="Логотип" class="footer__logo">
+        <p class="footer__logo">&copy; 2020 Mesto Russia</p>
     </footer>
 
     <section class="popup">
-        <form class="popup__container">
+        <form class="popup__container" name="box-popup">
             <button type="button" class="popup__close"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <fieldset class="popup__contact-info">
-                <input type="text" class="popup__name">
-                <input type="text" class="popup__self">
+                <input type="text" class="popup__input popup__input_self_name">
+                <input type="text" class="popup__input popup__input_self_job">
             </fieldset>
             <input type="submit" class="popup__save" value="Сохранить">
         </form>

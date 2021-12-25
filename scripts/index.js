@@ -16,8 +16,8 @@ popupCloseButton.addEventListener('click', closePopup);
 const formElement = document.querySelector('.popup__container');
 const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
-const name = document.querySelector('.popup__name');
-const job = document.querySelector('.popup__self');
+const name = document.querySelector('.popup__input_self_name');
+const job = document.querySelector('.popup__input_self_job');
 
 function fullInput() {
     name.value = nameInput.textContent;
