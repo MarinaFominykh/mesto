@@ -1,4 +1,4 @@
-.popup__self {
+.popup__input {
     width: 100%;
     font-size: 14px;
     line-height: 16.94px;
@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 960px) {
-    .popup__self {
+    .popup__input {
         font-size: 14px;
         line-height: 17px;
     }
