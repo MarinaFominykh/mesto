@@ -8,5 +8,6 @@
 
 При написании HTML-кода применялась методология БЭМ. В проекте использована семантическая разметка. Файловая структура проекта также организована по методологии БЭМ.
 
-Ссылка на проект: https://marinafominykh.github.io/how-to-learn/index.html
+Ссылка на проект: https://marinafominykh.github.io/mesto/index.html
+
 
