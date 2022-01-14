@@ -34,11 +34,6 @@
 @import url(../blocks/popup/__close/_type/popup__close_type_image.css);
 @import url(../blocks/popup/__contact-info/popup__contact-info.css);
 @import url(../blocks/popup/__input/popup__input.css);
-<<<<<<< HEAD
-@import url(../blocks/popup/__input/_self/popup__input_self_job.css);
-@import url(../blocks/popup/__input/_self/popup__input_self_name.css);
-@import url(../blocks/popup/__save/popup__save.css);
-=======
 @import url(../blocks/popup/__input/_type/popup__input_type_job.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_name.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_title.css);
@@ -47,4 +42,3 @@
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__image-activ/popup__image-activ.css);
 @import url(../blocks/popup/__image-text/popup__image-text.css);
->>>>>>> feature/cards
