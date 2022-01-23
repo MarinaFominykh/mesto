@@ -8,9 +8,11 @@ const addCardButton = document.querySelector('.profile__add-button');
 const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close');
 const closeImagePopupButton = imagePopup.querySelector('.popup__close');
 
+//Формы
 const editForm = editPopup.querySelector('.popup__container');
 const addCardForm = addCardPopup.querySelector('.popup__container');
 
+//Инпуты:
 const inputName = document.querySelector('.popup__input_type_name');
 const inputJob = document.querySelector('.popup__input_type_job');
 const inputTitle = document.querySelector('.popup__input_type_title');
@@ -21,27 +23,42 @@ const profileJob = document.querySelector('.profile__subtitle');
 const list = document.querySelector('.places__cards');
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.places__card');
 
+//Функция открытия модального окна
 function openPopup(popup) {
     popup.classList.add('popup_opened');
 }
 
+//Функция закрытия модального окна
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
 }
 
-closeEditPopupButton.addEventListener('click', () => closePopup(editPopup));
 
+closeEditPopupButton.addEventListener('click', () => closePopup(editPopup));
 addCardButton.addEventListener('click', () => openPopup(addCardPopup));
 closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
 closeImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
 
+//Функция, подставляющая значения профиля в поля формы при открытии
 function handleOpenProfileForm() {
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
     openPopup(editPopup);
+    const buttonSaveEditForm = editForm.querySelector('.popup__save');
+    const isEditFormValid = editForm.checkValidity();
+    if (isEditFormValid) {
+        buttonSaveEditForm.classList.remove('popup__save_disabled');
+        buttonSaveEditForm.removeAttribute('disabled');
+    } else {
+        buttonSaveEditForm.classList.add('popup__save_disabled')
+        buttonSaveEditForm.setAttribute('disabled', 'true');
+
+    }
+
 }
 editProfileButton.addEventListener('click', handleOpenProfileForm);
 
+//Функция, подставляющая значение из формы в поля профиля
 function formEditPopapSubmitHandler(evt) {
     evt.preventDefault();
     profileName.textContent = inputName.value;
@@ -56,7 +73,7 @@ addCardForm.addEventListener('submit', (event) => {
     createCard({
         name: inputTitle.value,
         link: inputLink.value,
-    });
+    })
     closePopup(addCardPopup)
 });
 
@@ -97,3 +114,29 @@ function createCard(cardData) {
 };
 
 initialCards.forEach(createCard);
+
+//Закрытие модального окна кликом по оверлею
+function closeEditPopupOnOverlayClick(event) {
+    if (event.target === event.currentTarget) {
+        editPopup.classList.remove('popup_opened');
+        addCardPopup.classList.remove('popup_opened');
+        imagePopup.classList.remove('popup_opened');
+    }
+};
+
+editPopup.addEventListener('click', closeEditPopupOnOverlayClick);
+addCardPopup.addEventListener('click', closeEditPopupOnOverlayClick);
+imagePopup.addEventListener('click', closeEditPopupOnOverlayClick);
+
+
+//Закрытие модального окна нажатием на клавишу esc
+function closePopupOnEsc(event) {
+    if (event.key === 'Escape') {
+        editPopup.classList.remove('popup_opened');
+        addCardPopup.classList.remove('popup_opened');
+        imagePopup.classList.remove('popup_opened');
+    }
+
+};
+
+document.addEventListener('keydown', closePopupOnEsc);
