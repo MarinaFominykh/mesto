@@ -26,36 +26,43 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 //Функция открытия модального окна
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', doSomething);
 }
 
 //Функция закрытия модального окна
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', doSomething);
 }
 
+//Закрытие модального окна нажатием на клавишу esc
+function doSomething(event) {
+    if (event.key === 'Escape') {
+        closePopup(document.querySelector('.popup_opened'));
+    }
+};
 
 closeEditPopupButton.addEventListener('click', () => closePopup(editPopup));
 addCardButton.addEventListener('click', () => openPopup(addCardPopup));
 closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
 closeImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
 
+
 //Функция, подставляющая значения профиля в поля формы при открытии
 function handleOpenProfileForm() {
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
+    enableEditSubmitButton();
     openPopup(editPopup);
-    const buttonSaveEditForm = editForm.querySelector('.popup__save');
-    const isEditFormValid = editForm.checkValidity();
-    if (isEditFormValid) {
-        buttonSaveEditForm.classList.remove('popup__save_disabled');
-        buttonSaveEditForm.removeAttribute('disabled');
-    } else {
-        buttonSaveEditForm.classList.add('popup__save_disabled')
-        buttonSaveEditForm.setAttribute('disabled', 'true');
+};
 
-    }
+//Функция для активации кнопки в форме профиля
+function enableEditSubmitButton() {
+    const buttonSaveEditForms = editForm.querySelector('.popup__save');
+    buttonSaveEditForms.classList.remove('popup__save_disabled');
+    buttonSaveEditForms.removeAttribute('disabled');
+};
 
-}
 editProfileButton.addEventListener('click', handleOpenProfileForm);
 
 //Функция, подставляющая значение из формы в поля профиля
@@ -64,7 +71,7 @@ function formEditPopapSubmitHandler(evt) {
     profileName.textContent = inputName.value;
     profileJob.textContent = inputJob.value;
     closePopup(editPopup);
-}
+};
 
 editForm.addEventListener('submit', formEditPopapSubmitHandler);
 
@@ -74,8 +81,18 @@ addCardForm.addEventListener('submit', (event) => {
         name: inputTitle.value,
         link: inputLink.value,
     })
-    closePopup(addCardPopup)
+    closePopup(addCardPopup);
+    addCardForm.reset();
 });
+
+//Функция для дезактивации кнопки в форме добавления карточки
+function disableAddCardSubmitButton() {
+    const buttonSaveAddCardForm = addCardForm.querySelector('.popup__save');
+    buttonSaveAddCardForm.classList.add('popup__save_disabled');
+    buttonSaveAddCardForm.setAttribute('disabled', 'true');
+};
+
+addCardForm.addEventListener('reset', disableAddCardSubmitButton);
 
 function getCard(item) {
     const cardElement = cardTemplate.cloneNode(true)
@@ -116,27 +133,12 @@ function createCard(cardData) {
 initialCards.forEach(createCard);
 
 //Закрытие модального окна кликом по оверлею
-function closeEditPopupOnOverlayClick(event) {
+function closePopupOnOverlayClick(event) {
     if (event.target === event.currentTarget) {
-        editPopup.classList.remove('popup_opened');
-        addCardPopup.classList.remove('popup_opened');
-        imagePopup.classList.remove('popup_opened');
+        closePopup(event.currentTarget)
     }
 };
 
-editPopup.addEventListener('click', closeEditPopupOnOverlayClick);
-addCardPopup.addEventListener('click', closeEditPopupOnOverlayClick);
-imagePopup.addEventListener('click', closeEditPopupOnOverlayClick);
-
-
-//Закрытие модального окна нажатием на клавишу esc
-function closePopupOnEsc(event) {
-    if (event.key === 'Escape') {
-        editPopup.classList.remove('popup_opened');
-        addCardPopup.classList.remove('popup_opened');
-        imagePopup.classList.remove('popup_opened');
-    }
-
-};
-
-document.addEventListener('keydown', closePopupOnEsc);
+editPopup.addEventListener('click', closePopupOnOverlayClick);
+addCardPopup.addEventListener('click', closePopupOnOverlayClick);
+imagePopup.addEventListener('click', closePopupOnOverlayClick);

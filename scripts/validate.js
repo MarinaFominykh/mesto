@@ -1,5 +1,3 @@
-//Код валидации
-
 function submitForm(event) {
     event.preventDefault();
 
@@ -19,7 +17,7 @@ function hideInputError(input, errorContainer, { inputErrorClass, errorActiveCla
     errorContainer.textContent = '';
 };
 
-//Функция, меняющая стиль кнопки "Отправить"
+
 function toggleSubmitButton(form, { buttonSelector, inactiveButtonClass }) {
     const button = form.querySelector(buttonSelector);
     const isFormValid = form.checkValidity();
@@ -30,9 +28,10 @@ function toggleSubmitButton(form, { buttonSelector, inactiveButtonClass }) {
     } else {
         button.classList.add(inactiveButtonClass)
         button.setAttribute('disabled', 'true');
-
     }
 };
+
+
 
 function validateInput(form, input, classes) {
     const errorContainer = form.querySelector(`#error-${input.id}`);
@@ -61,6 +60,7 @@ function enableValidation({ formSelector, inputSelector, ...rest }) {
         toggleSubmitButton(form, rest);
     });
 }
+
 
 enableValidation({
     formSelector: '.popup__container',
