@@ -1,6 +1,5 @@
 function submitForm(event) {
     event.preventDefault();
-
 };
 
 // Функция, которая показывает сообщения об ошибке
@@ -17,7 +16,6 @@ function hideInputError(input, errorContainer, { inputErrorClass, errorActiveCla
     errorContainer.textContent = '';
 };
 
-
 function toggleSubmitButton(form, { buttonSelector, inactiveButtonClass }) {
     const button = form.querySelector(buttonSelector);
     const isFormValid = form.checkValidity();
@@ -26,28 +24,24 @@ function toggleSubmitButton(form, { buttonSelector, inactiveButtonClass }) {
         button.removeAttribute('disabled');
 
     } else {
-        button.classList.add(inactiveButtonClass)
+        button.classList.add(inactiveButtonClass);
         button.setAttribute('disabled', 'true');
     }
 };
-
-
 
 function validateInput(form, input, classes) {
     const errorContainer = form.querySelector(`#error-${input.id}`);
     if (input.validity.valid) {
         hideInputError(input, errorContainer, classes);
-
     } else {
         showInputError(input, errorContainer, classes);
     }
     toggleSubmitButton(form, classes);
-}
-
-
+};
 
 function enableValidation({ formSelector, inputSelector, ...rest }) {
     const forms = document.querySelectorAll(formSelector);
+
     forms.forEach(form => {
         form.addEventListener('submit', submitForm);
         const inputs = form.querySelectorAll(inputSelector);
@@ -55,12 +49,10 @@ function enableValidation({ formSelector, inputSelector, ...rest }) {
             input.addEventListener('input', () => {
                 validateInput(form, input, rest);
             });
-
         });
         toggleSubmitButton(form, rest);
     });
-}
-
+};
 
 enableValidation({
     formSelector: '.popup__container',
@@ -70,5 +62,9 @@ enableValidation({
     errorActiveClass: 'popup__error_active',
     errorSelector: '.popup__error',
     inactiveButtonClass: 'popup__save_disabled'
-
 });
+
+const objectToggleSubmitBatton = {
+    buttonSelector: '.popup__save',
+    inactiveButtonClass: 'popup__save_disabled'
+};
