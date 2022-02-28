@@ -1,14 +1,13 @@
-import { imagePopup } from './index.js';
-import { openPopup } from './index.js';
 export class Card {
-    constructor(data, cardTemplateSelector) {
+    constructor(data, cardTemplateSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._template = document.querySelector(cardTemplateSelector).content.querySelector('.places__card');
+        this._handleCardClick = handleCardClick;
 
     }
-
-    _handleLikeIcon = () => {
+    
+     _handleLikeIcon = () => {
         this._likeButton.classList.toggle('places__like_activ')
     }
 
@@ -16,20 +15,13 @@ export class Card {
         this._cardElement.remove()
     }
 
-    _handlePreviewPicture = () => {
-        const imageActive = imagePopup.querySelector('.popup__image-activ');
-        const imageText = imagePopup.querySelector('.popup__image-text');
-        openPopup(imagePopup)
-        imageActive.src = this._link
-        imageText.textContent = this._name
-        imageActive.alt = this._name
-
-    }
-
+  
     _setEventListeners() {
         this._likeButton.addEventListener('click', this._handleLikeIcon);
         this._deleteButton.addEventListener('click', this._handleDeleteCard);
-        this._cardImage.addEventListener('click', this._handlePreviewPicture);
+               this._cardImage.addEventListener('click', () => {
+            this._handleCardClick(this._name, this._link)
+          });
     }
 
     getCard = () => {

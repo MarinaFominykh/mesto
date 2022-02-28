@@ -1,4 +1,4 @@
-export class formValidator {
+export class FormValidator {
     constructor(setting, form) {
         this._form = form;
         this._setting = setting;
@@ -7,7 +7,7 @@ export class formValidator {
 
     }
 
-        _showInputError(input, errorContainer) {
+    _showInputError(input, errorContainer) {
         input.classList.add(this._setting.inputErrorClass);
         errorContainer.classList.add(this._setting.errorActiveClass);
         errorContainer.textContent = input.validationMessage;
@@ -29,6 +29,15 @@ export class formValidator {
             this._showInputError(input, errorContainer);
         }
     };
+
+    resetValidation() {
+        this.toggleSubmitButton();
+        this._inputList.forEach((input) => {
+            const errorContainer = this._form.querySelector(`#error-${input.id}`);
+            this._hideInputError(input, errorContainer)
+        });
+
+    }
 
     _setEventListener = () => {
 
