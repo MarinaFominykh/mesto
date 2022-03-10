@@ -19,9 +19,14 @@ const profileJob = document.querySelector('.profile__subtitle');
 
 const list = document.querySelector('.places__cards');
 const cardTemplateSelector = '.card-template';
+const cardListSection = '.places__cards';
 
 const imageActive = imagePopup.querySelector('.popup__image-activ');
 const imageText = imagePopup.querySelector('.popup__image-text');
+
+const addCardFormPopupSelector = '.popup_type_add-card';
+const editFormPopupSelector = '.popup_type_edit';
+const imageFormPopupSelector = '.popup_type_activ-image';
 
 const config = {
     formSelector: '.popup__container',
@@ -52,5 +57,9 @@ export {
     config,
     imageActive,
     imageText,
-    popups
+    popups,
+    cardListSection,
+    addCardFormPopupSelector,
+    editFormPopupSelector,
+    imageFormPopupSelector
 }

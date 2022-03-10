@@ -6,8 +6,8 @@ export class Card {
         this._handleCardClick = handleCardClick;
 
     }
-    
-     _handleLikeIcon = () => {
+
+    _handleLikeIcon = () => {
         this._likeButton.classList.toggle('places__like_activ')
     }
 
@@ -15,13 +15,13 @@ export class Card {
         this._cardElement.remove()
     }
 
-  
+
     _setEventListeners() {
         this._likeButton.addEventListener('click', this._handleLikeIcon);
         this._deleteButton.addEventListener('click', this._handleDeleteCard);
-               this._cardImage.addEventListener('click', () => {
+        this._cardImage.addEventListener('click', () => {
             this._handleCardClick(this._name, this._link)
-          });
+        });
     }
 
     getCard = () => {
