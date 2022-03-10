@@ -1,6 +1,6 @@
-import { FormValidator } from '../components/formValidator.js';
+import { FormValidator } from '../components/FormValidator.js';
 import { initialCards } from '../scripts/cards.js';
-import { Card } from '../components/card.js';
+import { Card } from '../components/Card.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
