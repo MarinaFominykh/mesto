@@ -1,0 +1,27 @@
+{
+    "name": "mesto",
+    "version": "1.0.0",
+    "description": "Проект \"Место\" выполнен в рамках курса обучения по программе \"Веб-разработчик\". Цель проекта - получить практические навыки программирования на языке JavaScript, а также закрепить навыки адаптивной вёрстки, полученные на предыдущих курсах.",
+    "main": "index.js",
+    "scripts": {
+        "build": "rm -rf dist && webpack --mode production",
+        "dev": "webpack serve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MarinaFominykh/mesto.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MarinaFominykh/mesto/issues"
+    },
+    "homepage": "https://github.com/MarinaFominykh/mesto#readme",
+    "devDependencies": {
+        "webpack": "^5.70.0"
+    },
+    "dependencies": {
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.7.4"
+    }
+}
