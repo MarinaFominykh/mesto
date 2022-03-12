@@ -22,8 +22,11 @@ import {
     addCardFormPopupSelector,
     editFormPopupSelector,
     imageFormPopupSelector
-} from '../utils/constans.js'
-import { Section } from '../components/Section.js'
+} from '../utils/constans.js';
+import { Section } from '../components/Section.js';
+import './index.css';
+
+
 
 
 
