@@ -42,6 +42,7 @@ const cardList = new Section({
 cardList.renderItems();
 
 
+
 const editFormValidator = new FormValidator(config, editForm);
 const addCardFormValidator = new FormValidator(config, addCardForm);
 
@@ -84,7 +85,6 @@ popupWithCardForm.setEventListeners();
 function handleOpenProfileForm() {
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
-    editFormValidator.toggleSubmitButton();
     popupWithEditForm.open();
 
 };
@@ -104,7 +104,7 @@ function getCard(data) {
 //Добавить карточку на страницу
 function createCard(data) {
     const cardElement = getCard(data);
-    list.prepend(cardElement);
+    cardList.addItem(cardElement);
 };
 
 //Функция открытия попапа с картинкой
