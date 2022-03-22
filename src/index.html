@@ -16,14 +16,19 @@
 
     <main class="content">
         <section class="profile">
-            <img src="<%=require('./images/Avatar.png')%>" alt="Аватар" class="profile__avatar">
+            <div class="profile__hover-container">
+                <div class="profile__hover-pen"></div>
+                <img src="#" alt="Аватар" class="profile__avatar">
+
+            </div>
+
             <div class="profile__name-container">
-                <h1 class="profile__title">Жак-Ив Кусто</h1>
+                <h1 class="profile__title"></h1>
                 <button class="profile__edit-button" type="button">
                     <img src="<%=require('./images/vector.svg')%>" alt="Редактировать" class="profile__edit-image">
             </button>
             </div>
-            <p class="profile__subtitle">Исследователь океaна</p>
+            <p class="profile__subtitle"></p>
             <button class="profile__add-button" type="button"></button>
         </section>
 
@@ -76,6 +81,27 @@
         </figure>
     </section>
 
+    <section class="popup popup_type_confirmation">
+        <form class="popup__container popup__container_form_confirmation" name="confirmationForm" novalidate>
+            <button type="button" class="popup__close"></button>
+            <h2 class="popup__title popup__title_form_confirmation">Вы уверены?</h2>
+
+            <button type="submit" class="popup__save" value="Да">Да</button>
+        </form>
+    </section>
+
+    <section class="popup popup_type_update-avatar">
+        <form class="popup__container popup__container_form_update-avatar" name="updateAvatarForm" novalidate>
+            <button type="button" class="popup__close"></button>
+            <h2 class="popup__title popup__title__update-avatar">Обновить аватар</h2>
+            <fieldset class="popup__contact-info">
+                <input id="link" type="url" name="link" class="popup__input popup__input_type_link" placeholder="Ссылка на аватар" required>
+                <span id="error-link" class="popup__error popup__error_active"></span>
+            </fieldset>
+            <button type="submit" class="popup__save" value="сохранить">Сохранить</button>
+        </form>
+    </section>
+
     <template class="card-template">
         <li class="places__card">
             <button class="places__delete-button" type="button">
@@ -86,7 +112,10 @@
             <img src="#" alt="" class="places__image">
             <div class="places__name-container">
                 <h2 class="places__name"></h2>
-                <button class="places__like" type="button"></button>
+                <div class="places__like-container">
+                    <button class="places__like" type="button"></button>
+                    <span class="places__like-count"></span>
+                </div>
             </div>
         </li>
     </template>

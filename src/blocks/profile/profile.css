@@ -8,7 +8,11 @@
     grid-template-areas: "image name add" "image self add";
     align-content: space-between;
     row-gap: 16px;
+    background-size: cover;
+    background-position: center;
+   
 }
+
 
 @media screen and (max-width: 960px) {
     .profile {
