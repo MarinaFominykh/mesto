@@ -3,6 +3,7 @@ import { Card } from '../components/Card.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithConfirm } from '../components/PopupWithConfirm.js';
 import {
     editProfileButton,
     addCardButton,
@@ -27,16 +28,15 @@ import { api } from '../components/Api.js';
 
 let userId
 
-api.getProfile()
-    .then(res => {
-        console.log(res)
-        userInfo.setUserInfo(res.name, res.about, res.avatar)
-        userId = res._id
-    });
+const userRes = api.getProfile();
+const cardsRes = api.getInitialCards();
+const promisesArr = [userRes, cardsRes];
 
-api.getInitialCards()
-    .then(cardata => {
-        cardata.forEach(data => {
+Promise.all(promisesArr)
+    .then(([userData, cardData]) => {
+        userInfo.setUserInfo(userData.name, userData.about, userData.avatar);
+        userId = userData._id
+        cardData.forEach(data => {
             const cardElement = getCard({
                 name: data.name,
                 link: data.link,
@@ -44,12 +44,11 @@ api.getInitialCards()
                 id: data._id,
                 userId: userId,
                 ownerId: data.owner._id
-
             });
             cardList.addItem(cardElement)
-
         });
     })
+    .catch(console.log)
 
 
 //Создание экземпляров классов и вызов методов
@@ -73,18 +72,20 @@ addCardFormValidator.enableValidation();
 updateAvatarFormValidator.enableValidation();
 
 const userInfo = new UserInfo({ nameSelector: '.profile__title', jobSelector: '.profile__subtitle', avatarSelector: '.profile__avatar' });
-const PopupWithImageFill = new PopupWithImage(imageFormPopupSelector);
-PopupWithImageFill.setEventListeners();
+const popupWithImageFill = new PopupWithImage(imageFormPopupSelector);
+popupWithImageFill.setEventListeners();
 
 const popupWithEditForm = new PopupWithForm({
         submitForm: (data) => {
-            const { name, job, avatar } = data;
-            api.editProfile(name, job, avatar)
+            const { name, job } = data;
+            console.log(data)
+            api.editProfile(name, job)
                 .then(res => {
-                    console.log(res)
-                    userInfo.setUserInfo(name, job, avatar);
+                    userInfo.setUserInfo(name, job, res.avatar);
+                    popupWithEditForm.close();
                 })
-            popupWithEditForm.close();
+                .catch(console.log)
+                .finally(() => { popupWithEditForm.submitButtonText('Сохранить') })
         }
     },
     editFormPopupSelector
@@ -105,16 +106,19 @@ const popupWithCardForm = new PopupWithForm({
                     userId: userId,
                     ownerId: res.owner._id
                 })
+                popupWithCardForm.close()
             })
-        popupWithCardForm.close()
+            .finally(() => { popupWithCardForm.submitButtonText('Создать') })
+            .catch(console.log)
+
     }
 }, addCardFormPopupSelector)
 
 popupWithCardForm.setEventListeners();
 
-const popupWithConfirmationForm = new PopupWithForm({
+const popupWithConfirmationForm = new PopupWithConfirm({
     submitForm: () => {
-        popupWithConfirmationForm.close();
+
     }
 }, confirmationFormPopupSelector);
 
@@ -122,15 +126,16 @@ popupWithConfirmationForm.setEventListeners();
 
 const popupWithUpdateAvatarForm = new PopupWithForm({
     submitForm: (data) => {
-
-        console.log('удалить');
         api.updateAvatar(data.link)
             .then(res => {
-                console.log(res.avatar)
-                userInfo.setUserInfo(res.name, res.job, res.avatar);
-
+                console.log(res.about)
+                userInfo.setUserInfo(res.name, res.about, res.avatar);
+                popupWithUpdateAvatarForm.close();
             })
-        popupWithUpdateAvatarForm.close();
+            .catch(console.log)
+            .finally(() => {
+                popupWithUpdateAvatarForm.submitButtonText('Сохранить')
+            })
     }
 }, updateAvatarFormSelector);
 
@@ -143,30 +148,36 @@ function handleOpenProfileForm() {
     const { userName, userJob } = userInfo.getUserInfo()
     inputName.value = userName;
     inputJob.value = userJob;
-    popupWithEditForm.open('Сохранить');
+    popupWithEditForm.open();
 
 };
 
 //Функция для дизейбла кнопки
 function handleOpenAddCardForm() {
-    popupWithCardForm.open('Создать');
+    popupWithCardForm.open();
     addCardFormValidator.toggleSubmitButton();
+};
+
+function handleOpenUpdateAvatarForm() {
+    popupWithUpdateAvatarForm.open();
+    updateAvatarFormValidator.toggleSubmitButton();
 };
 
 //Создать и вернуть карточку
 function getCard(data) {
-    // const card = new Card(data, cardTemplateSelector, handleCardClick);
     const card = new Card(data,
         cardTemplateSelector,
-        () => { PopupWithImageFill.open(data.name, data.link) },
+        () => { popupWithImageFill.open(data.name, data.link) },
         (id) => {
-            popupWithConfirmationForm.open('Вы уверены?');
+            popupWithConfirmationForm.open();
             popupWithConfirmationForm.changeSubmitHandler(() => {
                 api.deleteCard(id)
                     .then(res => {
                         card.deleteCard();
                         popupWithConfirmationForm.close();
                     })
+                    .catch(console.log)
+                    .finally(() => { popupWithConfirmationForm.submitButtonText('Да') })
             });
         },
         (id) => {
@@ -176,12 +187,14 @@ function getCard(data) {
                         res.likes
                         card.setLikes(res.likes)
                     })
+                    .catch(console.log)
             } else {
                 api.addLike(id)
                     .then(res => {
                         res.likes
                         card.setLikes(res.likes)
                     })
+                    .catch(console.log)
             }
         },
     );
@@ -207,5 +220,5 @@ addCardButton.addEventListener('click', () => {
 });
 
 updateAvatarButton.addEventListener('click', () => {
-    popupWithUpdateAvatarForm.open('Сохранить');
+    handleOpenUpdateAvatarForm()
 });

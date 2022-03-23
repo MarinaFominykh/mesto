@@ -1,5 +1,3 @@
-import { Popup } from './Popup.js';
-const newPopupConfirmation = new Popup('.popup_type_confirmation');
 export class Card {
     constructor(data, cardTemplateSelector, handleCardClick, handleDeleteClick, handleLlikeClick) {
         this._name = data.name;
@@ -38,11 +36,6 @@ export class Card {
     deleteCard = () => {
         this._cardElement.remove();
         this._cardElement = null;
-    }
-
-    //Новое
-    _openConfirmationPopup = () => {
-        newPopupConfirmation.open();
     }
 
     _setEventListeners() {

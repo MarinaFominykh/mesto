@@ -17,6 +17,6 @@
 - возможность редактирования данных профиля;
 - валидация полей формы редактирования профиля и добавления карточек.
 
-Ссылка на проект: https://marinafominykh.github.io/mesto/index.html
+Ссылка на проект: https://marinafominykh.github.io/mesto/
 
 
