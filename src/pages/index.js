@@ -46,6 +46,7 @@ Promise.all(promisesArr)
                 ownerId: data.owner._id
             });
             cardList.addItem(cardElement)
+
         });
     })
     .catch(console.log)
